@@ -1,12 +1,31 @@
 import React from 'react';
+import { ADD_FRIEND } from '../utils/mutations';
+import { useQuery, useMutation } from '@apollo/client';
+
+const handleClick = async () => {
+  try {
+    await addFriend({
+      variables: { id: user._id }
+    });
+  } catch (e) {
+    console.error(e);
+  }
+};
 
 const Profile = () => {
+  const [addFriend] = useMutation(ADD_FRIEND);
+
+
   return (
     <div>
       <div className="flex-row mb-3">
         <h2 className="bg-dark text-secondary p-3 display-inline-block">
-          {/* Viewing <usernames>'s profile. */}
+          Viewing {userParam ? `${user.username}'s` : 'your'} profile.
         </h2>
+
+        <button className="btn ml-auto" onClick={handleClick}>
+          Add Friend
+        </button>
       </div>
 
       <div className="flex-row justify-space-between mb-3">
